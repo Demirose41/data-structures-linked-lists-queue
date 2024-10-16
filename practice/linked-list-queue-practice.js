@@ -10,6 +10,7 @@ class SinglyLinkedNode {
 class SinglyLinkedList {
     constructor(head = null) {
         this.head = head;
+        this.length = 0;
     }
 
     addToTail(val) {
@@ -17,6 +18,7 @@ class SinglyLinkedList {
 
         if (!this.head) {
             this.head = newNode;
+            this.length++;
             return this.head;
         }
 
@@ -26,29 +28,61 @@ class SinglyLinkedList {
         }
 
         curr.next = newNode;
+        this.length++;
         return this.head;
     }
 
     listLength() {
         // Returns the length of the list
-        // Implement in O(n) and in O(1) time complexity
+        if(!this.head) return 0
+
+        // Implement in O(n) and 
+
+        // let curr = this.head;
+        // let count = 1;
+        // while(curr.next != null){
+        //     curr = curr.next;
+        //     count++;
+        // }
+        // return count;
+
+        //in O(1) time complexity
+
+        //To do this we need to sacrifice space complexity and add 
+        //a length property to the linkedlist object.
+        if(this.length){
+            return this.length
+        }
     }
 
     sumOfNodes() {
         // Returns the sum of the values of all the nodes
+        let sum = this.head.value;
+        let curr = this.head;
+        while(curr.next != null){
+            curr = curr.next;
+            sum += curr.value;
+        }
+
+        return sum;
 
         // Write your hypothesis on the time complexity of this method here
     }
 
     averageValue() {
         // Returns the average value of all the nodes
+        return this.sumOfNodes() / this.length;
 
         // Write your hypothesis on the time complexity of this method here
     }
 
     findNthNode(n) {
         // Returns the node at the nth index from the head
-
+        let curr = this.head;
+        for(let i = 0; i < this.length; i++){
+            if(i == n) return curr;
+            curr = curr.next;
+        }
         // Write your hypothesis on the time complexity of this method here
     }
 
@@ -56,7 +90,7 @@ class SinglyLinkedList {
         // Returns the middle node
         // Implement this as a singly linked list then as a doubly linked list
             // How do the implementation for singly and doubly vary if at all?
-
+        return this.findNthNode(Math.floor(this.length  / 2) )
         // Write your hypothesis on the time complexity of this method here
     }
 

@@ -24,7 +24,20 @@ describe('Part 2: Linked Lists', () => {
 
     expect(list.listLength()).to.equal(4);
   });
+  it('`listLength` returns the length of the linked list 2', () => {
 
+    list.addToTail(1);
+    list.addToTail(2);
+    list.addToTail(3);
+    list.addToTail(4);
+    list.addToTail(1);
+    list.addToTail(2);
+    list.addToTail(3);
+    list.addToTail(4);
+
+    expect(list.listLength()).to.equal(8);
+  });
+  
 
   it('`sumOfNodes` returns the sum total of all nodes', () => {
 
