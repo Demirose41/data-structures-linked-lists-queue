@@ -90,19 +90,52 @@ class SinglyLinkedList {
         // Returns the middle node
         // Implement this as a singly linked list then as a doubly linked list
             // How do the implementation for singly and doubly vary if at all?
-        return this.findNthNode(Math.floor(this.length  / 2) )
+        if(this.length % 2 === 0 ){
+            return this.findNthNode(Math.ceil(this.length / 2) - 1 )
+        }else{
+            return this.findNthNode(Math.floor(this.length / 2) )
+        }
         // Write your hypothesis on the time complexity of this method here
     }
 
     reverse() {
         // Returns a new reversed version of the linked list
+        let reversedList = new SinglyLinkedList
+
+        let node = this.head
+        while(node){
+            reversedList.addToHead(node.value)
+            node = node.next;
+        }
+
+        return reversedList;
 
         // Write your hypothesis on the time complexity of this method here
     }
 
+    addToHead(val){
+        const newNode = new SinglyLinkedNode(val);
+        if(this.head) newNode.next = this.head; 
+        this.head = newNode;
+        this.length++;
+        return this;
+    }
+
     reverseInPlace() {
         // Reverses the linked list in-place
-
+        let node = this.head;
+        let nextNode = this.head
+        while(node.next){
+            nextNode = node.next
+            node.next = null;
+            this.addToHead(nextNode.value)
+            // [1] - 2 - 3 - 4 - 5
+            // [1] - (2) - 3 - 4 -5
+            // [2] - (1) - 3 - 4 - 5
+            // [3] - 2 - (1) - 4 - 5 
+            // [4] - 3 - 2 - (1) - 5  
+            node = nextNode
+        }
         // Write your hypothesis on the time complexity of this method here
     }
 }
