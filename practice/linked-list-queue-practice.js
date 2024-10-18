@@ -152,6 +152,7 @@ class DoublyLinkedList {
     constructor() {
         this.head = null;
         this.tail = null;
+        this.length = 0;
     }
 
     addToTail(val) {
@@ -160,33 +161,88 @@ class DoublyLinkedList {
         if (!this.head) {
             this.head = newNode;
             this.tail = newNode;
+            this.length++;
             return this.head;
         }
 
         this.tail.next = newNode;
         newNode.prev = this.tail;
         this.tail = newNode;
-
+        this.length++;
         return this.head;
+    }
+
+    addToHead(val) {
+        // There are bugs in this method! Fix them!!!
+        // Write your hypothesis on the time complexity of this method here
+        // O(1)
+        // Add node of val to head of linked list
+        let newNode = new DoublyLinkedNode(val);
+
+        if (this.length == 0) {
+            this.head = newNode;
+            this.tail = newNode;
+        } else {
+            this.head.prev = newNode;
+            newNode.next = this.head;
+            this.head = newNode;
+        }
+
+        this.length++;
+    }
+
+    findNthNode(n) {
+        // Returns the node at the nth index from the head
+        let curr = this.head;
+        for(let i = 0; i < this.length; i++){
+            if(i == n) return curr;
+            curr = curr.next;
+        }
+        // Write your hypothesis on the time complexity of this method here
     }
 
     findMid() {
         // Returns the middle node
         // Implement this as a singly linked list then as a doubly linked list
             // How do the implementation for singly and doubly vary if at all?
-
+            if(this.length % 2 === 0 ){
+                return this.findNthNode(Math.ceil(this.length / 2) - 1 )
+            }else{
+                return this.findNthNode(Math.floor(this.length / 2) )
+            }
         // Write your hypothesis on the time complexity of this method here
     }
 
     reverse() {
         // Returns a new reversed version of the linked list
+        let reversedDLL = new DoublyLinkedList
+
+        let node = this.head
+        while(node){
+            reversedDLL.addToHead(node.value)
+            node = node.next;
+        }
+
+        return reversedDLL;
 
         // Write your hypothesis on the time complexity of this method here
     }
 
     reverseInPlace() {
         // Reverses the linked list in-place
-
+        let node = this.head;
+        let nextNode = this.head
+        while(node.next){
+            nextNode = node.next
+            node.next = null;
+            this.addToHead(nextNode.value)
+            // [1] - 2 - 3 - 4 - 5
+            // [1] - (2) - 3 - 4 -5
+            // [2] - (1) - 3 - 4 - 5
+            // [3] - 2 - (1) - 4 - 5 
+            // [4] - 3 - 2 - (1) - 5  
+            node = nextNode
+        }
         // Write your hypothesis on the time complexity of this method here
     }
 }
